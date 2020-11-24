@@ -1,0 +1,17 @@
+name: tutorial
+
+conda_env: conda.yml
+
+entry_points:
+    main:
+        parameters:
+            data: path
+            batch_size: {type: float, default: 128}
+            epoch: {type: float, default: 15}
+            alpha: {type: float, default: 0.0001}
+            dropout: {type: float, default: 0.5}
+        command: "python train.py {data} --batch_size {batch_size} --epoch {epoch} --alpha {alpha}"
+    process:
+        parameters:
+            data: path
+        command: "python process.py {data}"
