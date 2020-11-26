@@ -14,11 +14,11 @@ import mlflow.keras
 
 from utils import load_data_folder
 
-# def eval_metrics(actual, pred):
-#  f1 = f1_score(actual, pred)
-#  acc = accuracy_score(actual, pred)
-#  roc_auc = roc_auc_score(actual, pred)
-#  return f1, acc, roc_auc
+def eval_metrics(actual, pred):
+  f1 = f1_score(actual, pred)
+  acc = accuracy_score(actual, pred)
+  roc_auc = roc_auc_score(actual, pred)
+  return f1, acc, roc_auc
 
 
 if __name__ == "__main__":
@@ -39,12 +39,15 @@ if __name__ == "__main__":
     val_split = args.val_split
     alpha = args.alpha
     dropout = args.dropout
+
+    params = {"batch_size": batch_size, "epochs": epochs, "val_split": val_split, "dropout": dropout}
     
     (x_train, y_train), (x_test, y_test) = load_data_folder(data)
     input_shape = x_train.shape[1:]
 
     with mlflow.start_run(experiment_id=1):
 
+        mlflow.log_params(params)
         mlflow.keras.autolog()
         model = keras.Sequential([
             keras.Input(shape = input_shape),
