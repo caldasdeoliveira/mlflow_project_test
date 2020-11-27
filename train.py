@@ -38,7 +38,7 @@ if __name__ == "__main__":
     gamma = args.gamma
     kernel = args.kernel
 
-    params = { "val_split": val_split, "C": C}
+    params = { "val_split": val_split, "C": C, "gamma": gamma, "kernel": kernel}
     
     (x_train, y_train), (x_test, y_test) = load_data_folder(data)
 

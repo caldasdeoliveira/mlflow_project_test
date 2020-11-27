@@ -6,13 +6,11 @@ entry_points:
     main:
         parameters:
             data: path
-            batch_size: {type: float, default: 128}
-            epochs: {type: float, default: 15}
             val_split: {type: float, default: 0.3}
             C: {type: float, default: 1}
             kernel: {type: str, default: "rbf"}
             gamma: {type: str, default: "scale"}
-        command: "python train.py --data {data} --batch_size {batch_size} --epochs {epochs} --val_split {val_split} --C {C} --kernel {kernel} --gamma {gamma}"
+        command: "python train.py --data {data} --val_split {val_split} --C {C} --kernel {kernel} --gamma {gamma}"
     load_data:
         command: "python load_data.py"
     process:
