@@ -53,11 +53,7 @@ if __name__ == "__main__":
             keras.Input(shape = input_shape),
             layers.Conv2D(32, kernel_size=(3, 3), activation="relu"),
             layers.MaxPooling2D(pool_size=(2, 2)),
-            layers.Conv2D(64, kernel_size=(3, 3), activation="relu"),
-            layers.MaxPooling2D(pool_size=(2, 2)),
             layers.Flatten(),
-            layers.Dropout(dropout),
-            layers.Dense(64, activation="relu"),
             layers.Dropout(dropout),
             layers.Dense(10, activation="softmax"),
         ])
