@@ -8,9 +8,9 @@ entry_points:
             data: path
             val_split: {type: float, default: 0.3}
             C: {type: float, default: 1}
-            kernel: {type: str, default: "rbf"}
-            gamma: {type: str, default: "scale"}
-        command: "python train.py --data {data} --val_split {val_split} --C {C} --kernel {kernel} --gamma {gamma}"
+            dual: {type: bool, default: True}
+            penalty: {type: str, default: "l2"}
+        command: "python train.py --data {data} --val_split {val_split} --C {C} --dual {dual} --penalty {penalty}"
     load_data:
         command: "python load_data.py"
     process:
