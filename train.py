@@ -25,8 +25,6 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--data','-dt', type=str)
-    parser.add_argument('--batch_size','-b', type=int)
-    parser.add_argument('--epochs','-e', type=int)
     parser.add_argument('--C','-c', type=float)
     parser.add_argument('--kernel','-k', type=str)
     parser.add_argument('--gamma','-g', type=str)
@@ -35,30 +33,27 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     data = args.data
-    batch_size = args.batch_size
-    epochs = args.epochs
     val_split = args.val_split
-    c = args.C 
+    C = args.C 
     gamma = args.gamma
     kernel = args.kernel
 
-    params = {"batch_size": batch_size, "epochs": epochs, "val_split": val_split, "dropout": dropout}
+    params = { "val_split": val_split, "C": C}
     
     (x_train, y_train), (x_test, y_test) = load_data_folder(data)
-    input_shape = x_train.shape[1:]
 
     with mlflow.start_run():
 
         mlflow.log_params(params)
         mlflow.sklearn.autolog()
 
-        X_train, X_val, y_train, y_val = train_test_split(x_train, y_train, test_size=val_split, random_state=42)
+        X_train, X_val, Y_train, Y_val = train_test_split(x_train, y_train, test_size=val_split, random_state=42)
         
         model = SVC(C=C, kernel=kernel, gamma=gamma)
 
-        results = model.fit( x_train, y_train, batch_size=batch_size, epochs=epochs, validation_split=val_split)
+        results = model.fit( X_train, Y_train)
 
-        metrics = eval_metrics(y_ val, model.predict(X_val))
+        metrics = eval_metrics( Y_val, model.predict(X_val))
 
         mlflow.log_metrics(metrics)
 
