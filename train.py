@@ -17,7 +17,7 @@ def eval_metrics(actual, pred):
   metrics = {}
   #metrics["f1"] = f1_score(actual, pred)
   metrics["acc"] = accuracy_score(actual, pred)
-  metrics["roc_auc"] = roc_auc_score(actual, pred)
+  #metrics["roc_auc"] = roc_auc_score(actual, pred, multi_class='ovr')
   return metrics
 
 
