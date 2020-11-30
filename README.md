@@ -5,5 +5,5 @@
 run on terminal
 
 ```bash
- conda env export > conda.yml
- ```
+conda env export --no-builds > conda.yaml 
+```
