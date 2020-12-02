@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 import os
 import mlflow
+import argparse
 
 def load_data():
     """
@@ -33,8 +34,13 @@ def load_data():
 
 if __name__ == "__main__":
     with mlflow.start_run(experiment_id=1) as mlrun:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--data','-dt', type=str)
+        data = args.data
+
         (x_train, y_train), (x_test, y_test) = load_data()
-        dir_path = os.path.join("mlflow_project_test","data")
+        dir_path = os.path.join(data,"data")
+        os.makedirs(dir_path, exist_ok=True)
         paths = {"x_train" : os.path.join(dir_path,"x_train.npy"),
         "y_train": os.path.join(dir_path,"y_train.npy"),
         "x_test": os.path.join(dir_path,"x_test.npy"),

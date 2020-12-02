@@ -11,7 +11,9 @@ entry_points:
             dropout: {type: float, default: 0.5}
         command: "python train.py --data {data} --batch_size {batch_size} --epochs {epochs} --val_split {val_split} --alpha {alpha} --dropout {dropout}"
     load_data:
-        command: "python load_data.py"
+        parameters:
+            save_path: path
+        command: "python load_data.py --save_path {save_path}"
     process:
         parameters:
             data: path
