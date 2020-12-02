@@ -32,10 +32,13 @@ def load_data():
 
     return (x_train, y_train), (x_test, y_test)
 
+print("before main")
 if __name__ == "__main__":
+    print("after main")
     with mlflow.start_run(experiment_id=1) as mlrun:
+        print("after run start")
         parser = argparse.ArgumentParser()
-        parser.add_argument('--data','-dt', type=str)
+        parser.add_argument('--save_path','-sp', type=str)
         data = args.data
 
         (x_train, y_train), (x_test, y_test) = load_data()
@@ -49,4 +52,5 @@ if __name__ == "__main__":
         np.save(paths["y_train"],y_train)
         np.save(paths["x_test"],x_test)
         np.save(paths["y_test"],y_test)
+        print("before logs")
         mlflow.log_artifacts(dir_path)
