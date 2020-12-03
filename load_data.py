@@ -35,7 +35,7 @@ def load_data():
 print("before main")
 if __name__ == "__main__":
     print("after main")
-    with mlflow.start_run(experiment_id=1) as mlrun:
+    with mlflow.start_run() as mlrun:
         print("after run start")
         parser = argparse.ArgumentParser()
         parser.add_argument('--save_path','-sp', type=str)
