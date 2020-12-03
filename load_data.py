@@ -31,11 +31,8 @@ def load_data():
 
     return (x_train, y_train), (x_test, y_test)
 
-print("before main")
 if __name__ == "__main__":
-    print("after main")
     with mlflow.start_run() as mlrun:
-        print("after run start")
         dir_path = tempfile.mkdtemp()
         (x_train, y_train), (x_test, y_test) = load_data()
         paths = {"x_train" : os.path.join(dir_path,"x_train.npy"),
@@ -46,5 +43,4 @@ if __name__ == "__main__":
         np.save(paths["y_train"],y_train)
         np.save(paths["x_test"],x_test)
         np.save(paths["y_test"],y_test)
-        print("before logs")
         mlflow.log_artifacts(dir_path)
