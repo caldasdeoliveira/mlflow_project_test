@@ -1,11 +1,10 @@
 from tensorflow import keras
 from tensorflow.keras import backend as K
 from tensorflow.keras.datasets import mnist
-import pandas as pd
 import numpy as np
 import os
 import mlflow
-import argparse
+import tempfile
 
 def load_data():
     """
@@ -37,13 +36,8 @@ if __name__ == "__main__":
     print("after main")
     with mlflow.start_run() as mlrun:
         print("after run start")
-        parser = argparse.ArgumentParser()
-        parser.add_argument('--save_path','-sp', type=str)
-        data = args.data
-
+        dir_path = tempfile.mkdtemp()
         (x_train, y_train), (x_test, y_test) = load_data()
-        dir_path = os.path.join(data,"data")
-        os.makedirs(dir_path, exist_ok=True)
         paths = {"x_train" : os.path.join(dir_path,"x_train.npy"),
         "y_train": os.path.join(dir_path,"y_train.npy"),
         "x_test": os.path.join(dir_path,"x_test.npy"),
