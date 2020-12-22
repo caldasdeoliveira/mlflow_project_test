@@ -33,7 +33,7 @@ def load_data():
 
 if __name__ == "__main__":
     with mlflow.start_run() as mlrun:
-        dir_path = tempfile.mkdtemp()
+        dir_path = tempfile.mkdtemp(dir="data")
         (x_train, y_train), (x_test, y_test) = load_data()
         paths = {"x_train" : os.path.join(dir_path,"x_train.npy"),
         "y_train": os.path.join(dir_path,"y_train.npy"),
