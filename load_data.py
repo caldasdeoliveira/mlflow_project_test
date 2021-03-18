@@ -1,10 +1,10 @@
 from tensorflow import keras
 from tensorflow.keras import backend as K
 from tensorflow.keras.datasets import mnist
-import pandas as pd
 import numpy as np
 import os
 import mlflow
+import tempfile
 
 def load_data():
     """
@@ -32,9 +32,9 @@ def load_data():
     return (x_train, y_train), (x_test, y_test)
 
 if __name__ == "__main__":
-    with mlflow.start_run(experiment_id=1) as mlrun:
+    with mlflow.start_run() as mlrun:
+        dir_path = tempfile.mkdtemp()
         (x_train, y_train), (x_test, y_test) = load_data()
-        dir_path = os.path.join("mlflow_project_test","data")
         paths = {"x_train" : os.path.join(dir_path,"x_train.npy"),
         "y_train": os.path.join(dir_path,"y_train.npy"),
         "x_test": os.path.join(dir_path,"x_test.npy"),
