@@ -5,13 +5,12 @@ conda_env: conda.yml
 entry_points:
     main:
         parameters:
-            data: {type: path, default: None}
             batch_size: {type: float, default: 128}
             epochs: {type: float, default: 15}
             val_split: {type: float, default: 0.3}
             alpha: {type: float, default: 0.01}
             dropout: {type: float, default: 0.5}
-        command: "python train.py --data {data} --batch_size {batch_size} --epochs {epochs} --val_split {val_split} --alpha {alpha} --dropout {dropout}"
+        command: "python train.py --batch_size {batch_size} --epochs {epochs} --val_split {val_split} --alpha {alpha} --dropout {dropout}"
     load_data:
         command: "python load_data.py"
     process:

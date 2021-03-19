@@ -25,7 +25,6 @@ def eval_metrics(actual, pred):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data','-dt', type=str)
     parser.add_argument('--batch_size','-b', type=int)
     parser.add_argument('--epochs','-e', type=int)
     parser.add_argument('--alpha','-a', type=float)
@@ -34,7 +33,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    data = args.data
     batch_size = args.batch_size
     epochs = args.epochs
     val_split = args.val_split
@@ -43,10 +41,7 @@ if __name__ == "__main__":
 
     params = {"batch_size": batch_size, "epochs": epochs, "val_split": val_split, "dropout": dropout}
 
-    if data:
-      (x_train, y_train), (x_test, y_test) = load_data_folder(data)
-    else:
-      (x_train, y_train), (x_test, y_test) = load_data()
+    (x_train, y_train), (x_test, y_test) = load_data()
     input_shape = x_train.shape[1:]
 
     with mlflow.start_run():
