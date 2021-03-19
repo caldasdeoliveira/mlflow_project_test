@@ -13,6 +13,7 @@ import mlflow.keras
 from sklearn.metrics import accuracy_score, f1_score, roc_auc_score
 
 from utils import load_data_folder
+from load_data import load_data
 
 def eval_metrics(actual, pred):
   f1 = f1_score(actual, pred)
@@ -41,11 +42,14 @@ if __name__ == "__main__":
     dropout = args.dropout
 
     params = {"batch_size": batch_size, "epochs": epochs, "val_split": val_split, "dropout": dropout}
-    
-    (x_train, y_train), (x_test, y_test) = load_data_folder(data)
+
+    if data:
+      (x_train, y_train), (x_test, y_test) = load_data_folder(data)
+    else:
+      (x_train, y_train), (x_test, y_test) = load_data()
     input_shape = x_train.shape[1:]
 
-    with mlflow.start_run(experiment_id=1):
+    with mlflow.start_run():
 
         mlflow.log_params(params)
         mlflow.keras.autolog()
