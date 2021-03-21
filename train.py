@@ -8,7 +8,7 @@ from tensorflow import keras
 from tensorflow.keras import layers
 
 import mlflow
-import mlflow.keras
+from mlflow.tensorflow import autolog
 
 from sklearn.metrics import accuracy_score, f1_score, roc_auc_score
 
@@ -46,8 +46,8 @@ if __name__ == "__main__":
 
     with mlflow.start_run():
 
-        mlflow.log_params(params)
-        mlflow.keras.autolog()
+        #mlflow.log_params(params)
+        autolog(every_n_iter=1)
         model = keras.Sequential([
             keras.Input(shape = input_shape),
             layers.Conv2D(32, kernel_size=(3, 3), activation="relu"),
@@ -57,9 +57,7 @@ if __name__ == "__main__":
             layers.Dense(10, activation="softmax"),
         ])
 
-        model.summary()
-
-        opt =keras.optimizers.Adam(learning_rate = alpha)
+        opt = keras.optimizers.Adam(learning_rate = alpha)
 
         model.compile(loss="categorical_crossentropy", optimizer=opt, metrics=["accuracy", "AUC"])
 
